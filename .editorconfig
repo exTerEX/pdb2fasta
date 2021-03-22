@@ -1,0 +1,12 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+
+[Makefile]
+indent_style = tab
+
+[.{devcontainer,vscode}/**.json]
+indent_style = tab

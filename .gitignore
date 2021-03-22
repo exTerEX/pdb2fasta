@@ -1,0 +1,23 @@
+# Code
+.vscode/*
+.devcontainer/*
+
+# Object files
+*.o
+*.obj
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects
+*.dll
+*.so
+*.so.*
+
+# Executables
+*.exe
+*.out
+
+# CMake
+build/*
