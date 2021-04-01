@@ -40,11 +40,15 @@ int main(int argc, char **argv) {
         name[50] = '\0';
     }
 
-    char *content = calloc(1, sizeof(*content));
+    char *content = malloc(sizeof(*content) * 1);
 
-    printf("%s", pdb2fasta(file, name, content));
+    content = pdb2fasta(file, name, content);
+
+    printf("%s", content);
 
     free(content);
+
+    fclose(file);
 
     return (EXIT_SUCCESS);
 }
