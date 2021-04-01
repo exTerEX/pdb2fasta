@@ -4,11 +4,15 @@
 #include <string.h>
 
 const char *pdb2fasta(FILE *file, const char *name, char *out) {
-    const unsigned name_length = strlen(name);
-    out = calloc(name_length, sizeof(*out));
-
     int count = 0;
     char line[80], altid = ' ';
+
+    char currentChainID = '\0';
+
+    if (&out[0] != 0) {
+        out[0] = 0;
+    }
+
     while (fgets(line, 80, file) != NULL) {
         if (strncmp("ENDMDL", line, 6) == 0) {
             break;
@@ -37,7 +41,7 @@ const char *pdb2fasta(FILE *file, const char *name, char *out) {
             continue;
         }
 
-        char temp[name_length + 10], currentChainID, nextChainID = line[21];
+        char temp[strlen(name) + 10], nextChainID = line[21];
         if (currentChainID != nextChainID) {
             if (currentChainID) {
                 sprintf(temp, "\n>%s:%c\n", name, nextChainID);
@@ -54,15 +58,17 @@ const char *pdb2fasta(FILE *file, const char *name, char *out) {
         }
 
         if (count == 79) {
-            out = realloc(out, sizeof(*out) * (strlen(out) + 1));
+            out = realloc(out, sizeof(*out) * (strlen(out) + strlen("\n") + 1));
             strcat(out, "\n");
             count = 0;
         }
         count++;
 
-        out = realloc(out, sizeof(*out) * (strlen(out) + 2));
+        out = realloc(out, sizeof(*out) * (strlen(out) + strlen(codon3to1(resn)) + 1));
         strcat(out, codon3to1(resn));
     }
+
+    out = realloc(out, sizeof(*out) * (strlen(out) + strlen("\n") + 1));
     strcat(out, "\n");
 
     return out;
