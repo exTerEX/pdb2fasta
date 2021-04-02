@@ -5,8 +5,7 @@
 
 int main(int argc, char **argv) {
     if (argc < 2) {
-        printf("pdb2fasta pdb.pdb > seq.fasta\n");
-        printf("    convert PDB file pdb.pdb to FASTA sequence file seq.fasta\n");
+        printf("pdb2fasta /path/to/pdb > /path/to/fasta\n");
         return argc;
     }
 
@@ -44,7 +43,10 @@ int main(int argc, char **argv) {
 
     content = pdb2fasta(file, name, content);
 
-    printf("%s", content);
+    // Write converted output to file.
+    FILE *out = fopen(argv[2], "w");
+    fprintf(out, "%s", content);
+    fclose(out);
 
     free(content);
 
