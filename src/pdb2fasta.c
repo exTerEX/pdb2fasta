@@ -5,7 +5,7 @@
 
 const char *pdb2fasta(FILE *file, const char *name, char *out) {
     int count = 0;
-    char line[80], altid = ' ';
+    char line[80], id = ' ';
 
     char currentChainID = '\0';
 
@@ -35,8 +35,8 @@ const char *pdb2fasta(FILE *file, const char *name, char *out) {
             resn[i] = line[17 + i];
         }
 
-        altid = line[16];
-        if (strcmp(atom, " CA ") || (altid != ' ' && altid != 'A') ||
+        id = line[16];
+        if (strcmp(atom, " CA ") || (id != ' ' && id != 'A') ||
             (strncmp("HETATM", line, 6) == 0 && strcmp(resn, "MSE"))) {
             continue;
         }
@@ -44,7 +44,7 @@ const char *pdb2fasta(FILE *file, const char *name, char *out) {
         char temp[strlen(name) + 10], nextChainID = line[21];
         if (currentChainID != nextChainID) {
             if (currentChainID) {
-                sprintf(temp, "\n>%s:%c\n", name, nextChainID);
+                sprintf(temp, "\n\n>%s:%c\n", name, nextChainID);
             } else {
                 sprintf(temp, ">%s:%c\n", name, nextChainID);
             }
@@ -67,9 +67,6 @@ const char *pdb2fasta(FILE *file, const char *name, char *out) {
         out = realloc(out, sizeof(*out) * (strlen(out) + strlen(codon3to1(resn)) + 1));
         strcat(out, codon3to1(resn));
     }
-
-    out = realloc(out, sizeof(*out) * (strlen(out) + strlen("\n") + 1));
-    strcat(out, "\n");
 
     return out;
 }
