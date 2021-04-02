@@ -1,0 +1,13 @@
+{
+    "files.eol": "\n",
+    "files.encoding": "utf8",
+    "files.insertFinalNewline": true,
+    "[jsonc]": {
+        "editor.formatOnSave": true,
+        "editor.tabSize": 4,
+        "editor.insertSpaces": false,
+    },
+    "C_Cpp.formatting": "clangFormat",
+    "C_Cpp.clang_format_style": "file",
+    "C_Cpp.clang_format_fallbackStyle": "LLVM"
+}

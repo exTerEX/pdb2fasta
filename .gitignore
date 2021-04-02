@@ -1,23 +1,26 @@
-# Code
+### Visual Studio Code
 .vscode/*
-.devcontainer/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/c_cpp_properties.json
+*.code-workspace
 
-# Object files
-*.o
-*.obj
-
-# Libraries
-*.lib
-*.a
-
-# Shared objects
-*.dll
-*.so
-*.so.*
-
-# Executables
-*.exe
-*.out
+### C/C++
 
 # CMake
-build/*
+CMakeLists.txt.*
+build/CMakeCache.txt
+build/CMakeFiles
+CMakeScripts
+Testing
+build/**/Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+CMakeUserPresets.json
+build.ninja
+build/.ninja_*
+.cmake
