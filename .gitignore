@@ -12,18 +12,12 @@
 
 # CMake
 CMakeLists.txt.*
-build/CMakeCache.txt
-build/**/CMakeFiles
-CMakeScripts
-Testing
+build/**/CMake*
+build/Testing
 build/**/Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_deps
-CMakeUserPresets.json
-build.ninja
-build/.ninja_*
+build/**/*.cmake
+build/CPack*
+build/compile_commands.json
+build/*.ninja*
 .cmake
 bin/**
