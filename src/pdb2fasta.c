@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-const char *pdb2fasta(FILE *file, const char *name, char *out) {
+void *pdb2fasta(FILE *file, const char *name, char *out) {
     int count = 0;
     char line[80], id = ' ';
 

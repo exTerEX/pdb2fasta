@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-const char *pdb2fasta(FILE *file, const char *name, char *out);
+void *pdb2fasta(FILE *file, const char *name, char *out);
 
 #endif
