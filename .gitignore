@@ -13,7 +13,7 @@
 # CMake
 CMakeLists.txt.*
 build/CMakeCache.txt
-build/CMakeFiles
+build/**/CMakeFiles
 CMakeScripts
 Testing
 build/**/Makefile
