@@ -5,7 +5,7 @@ project(
   LANGUAGES C
   VERSION 0.1.0)
 
-if(${CMAKE_BUILD_TYPE} STREQUAL Release)
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
   set(CMAKE_STATIC_LIBRARY_SUFFIX .so)
   set(CMAKE_EXECUTABLE_SUFFIX)
 
@@ -28,6 +28,4 @@ set_target_properties(
              PREFIX lib
              C_STANDARD 99)
 
-add_executable(main example/main.c)
-set_target_properties(main PROPERTIES LINKER_LANGUAGE C)
-target_link_libraries(main pdb2fasta)
+add_subdirectory(example)
