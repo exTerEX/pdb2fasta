@@ -15,10 +15,6 @@ if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
 else()
   set(CMAKE_STATIC_LIBRARY_SUFFIX .debug.so)
   set(CMAKE_EXECUTABLE_SUFFIX .debug)
-
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
-  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/lib)
-  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/lib)
 endif()
 
 add_subdirectory(src)
