@@ -17,6 +17,10 @@ else()
   set(CMAKE_EXECUTABLE_SUFFIX .debug)
 endif()
 
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+  set(CMAKE_C_CLANG_TIDY clang-tidy -checks=-*,readability-*)
+endif()
+
 add_subdirectory(src)
 
 add_subdirectory(example)
