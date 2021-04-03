@@ -21,15 +21,6 @@ else()
   set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/lib)
 endif()
 
-add_library(${PROJECT_NAME} STATIC src/pdb2fasta.c src/codon3to1.c)
-target_include_directories(
-  ${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-                         $<INSTALL_INTERFACE:include>)
-set_target_properties(
-  ${PROJECT_NAME}
-  PROPERTIES LINKER_LANGUAGE C
-             SOVERSION ${CMAKE_MAJOR_VERSION}
-             PREFIX lib
-             C_STANDARD 99)
+add_subdirectory(src)
 
 add_subdirectory(example)
