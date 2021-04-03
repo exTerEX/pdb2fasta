@@ -17,6 +17,8 @@ else()
   set(CMAKE_EXECUTABLE_SUFFIX .debug)
 endif()
 
+enable_testing()
+
 add_subdirectory(src)
 
 add_subdirectory(example)
