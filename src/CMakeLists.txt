@@ -5,6 +5,6 @@ target_include_directories(
 set_target_properties(
   ${PROJECT_NAME}
   PROPERTIES LINKER_LANGUAGE C
-             SOVERSION ${CMAKE_MAJOR_VERSION}
+             SOVERSION ${PROJECT_VERSION_MAJOR}
              PREFIX lib
              C_STANDARD 99)
