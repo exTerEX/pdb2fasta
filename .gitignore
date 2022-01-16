@@ -12,12 +12,6 @@
 
 # CMake
 CMakeLists.txt.*
-build/**/CMake*
-build/Testing
-build/**/Makefile
-build/**/*.cmake
-build/CPack*
-build/compile_commands.json
-build/*.ninja*
+build
 .cmake
 bin/**
