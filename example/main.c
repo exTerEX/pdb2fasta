@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define BASE_LENGTH 50
+
 int main(int argc, char **argv) {
     if (argc < 2) {
         printf("pdb2fasta /path/to/pdb > /path/to/fasta\n");
@@ -35,8 +37,9 @@ int main(int argc, char **argv) {
     }
     name[end_index - start_index] = '\0';
 
-    if (strlen(name) >= 50) {
-        name[50] = '\0';
+    if (strlen(name) >= BASE_LENGTH)
+    {
+      name[BASE_LENGTH] = '\0';
     }
 
     char *content = malloc(sizeof(*content) * 1);
