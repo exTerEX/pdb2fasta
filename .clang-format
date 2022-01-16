@@ -21,7 +21,7 @@ BraceWrapping:
   AfterControlStatement: true
   AfterEnum: false
   AfterFunction: true
-  AfterStruct: true
+  AfterStruct: false
   AfterUnion: true
   AfterExternBlock: false
   BeforeCatch: true
@@ -33,7 +33,7 @@ BreakBeforeBinaryOperators: None
 BreakBeforeBraces: Custom
 BreakBeforeTernaryOperators: true
 BreakStringLiterals: true
-ColumnLimit: 100
+ColumnLimit: 80
 CommentPragmas: '(^ \\param)|(^ \\return)|(^ \\retval)|(^ \\see)|(LCOV_EXCL_*)'
 ContinuationIndentWidth: 2
 DerivePointerAlignment: false
@@ -54,7 +54,7 @@ PenaltyExcessCharacter: 1000000
 PenaltyReturnTypeOnItsOwnLine: 600
 PointerAlignment: Right
 ReflowComments: true
-SortIncludes: false
+SortIncludes: true
 SortUsingDeclarations: false
 SpaceAfterCStyleCast: true
 SpaceBeforeAssignmentOperators: true
