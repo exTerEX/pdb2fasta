@@ -11,15 +11,17 @@ const char *argp_program_version = "pdb2fasta 0.1.0";
 const char *argp_program_bug_address = "developer@sagen.io";
 static char doc[] = "Converts PDB to fasta files.";
 static struct argp_option options[] = {
-  {"input", 'i', "FILE", 0, "Path to input (PDB) file."},
-  {"output", 'o', "FILE", OPTION_ARG_OPTIONAL, "Path to output (FASTA) file."},
+  {"input", 'i', 0, 1, "Path to input (PDB) file."},
+  {"output", 'o', 0, OPTION_ARG_OPTIONAL, "Path to output (FASTA) file."},
   {"name", 'n', 0, OPTION_ARG_OPTIONAL, "Name identifier in FASTA file."},
+  {"quiet", 'q', 0, 0, "Doesn't print any error messages or warnings."},
   {0}};
 
 struct arguments {
   char *input_file;
   char *output_file;
   char *file_name;
+  bool *quiet;
 };
 
 static error_t parse_opt(int key, char *arg, struct argp_state *state)
@@ -31,6 +33,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
   case 'i': arguments->input_file = arg; break;
   case 'o': arguments->output_file = arg; break;
   case 'n': arguments->file_name = arg; break;
+  case 'q': arguments->quiet = true; break;
   case ARGP_KEY_ARG: return 0;
   default: return ARGP_ERR_UNKNOWN;
   }
@@ -44,7 +47,15 @@ int main(int argc, char **argv)
 {
   struct arguments arguments;
 
+  arguments.quiet = false;
+
   argp_parse(&argp, argc, argv, 0, 0, &arguments);
+
+  if (!(arguments.input_file == NULL))
+  {
+    fprintf(stderr, "ERROR: No file given.\n");
+    return EXIT_FAILURE;
+  }
 
   FILE *file = fopen(arguments.input_file, "r");
 
@@ -89,13 +100,16 @@ int main(int argc, char **argv)
   }
   else
   {
-    // TODO: Correct/warn if name is longer then 50 chars
+    if (strlen(arguments.file_name) >= BASE_LENGTH && arguments.quiet)
+    {
+      fprintf(stdout, "Warning: Discourage names longer than 50 characters.");
+    }
     content = pdb2fasta(file, arguments.file_name, content);
   }
 
   if (!(arguments.output_file == NULL))
   {
-    printf("%s", content);
+    fprintf(stdout, "%s", content);
   }
   else
   {
@@ -108,5 +122,5 @@ int main(int argc, char **argv)
 
   fclose(file);
 
-  return (EXIT_SUCCESS);
+  return EXIT_SUCCESS;
 }
