@@ -26,5 +26,5 @@ if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
 endif()
 
 add_subdirectory(src)
-
 add_subdirectory(example)
+add_subdirectory(extras)
