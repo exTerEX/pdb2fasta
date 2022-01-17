@@ -36,3 +36,9 @@ add_subdirectory(extras)
 
 # The executable example code
 add_subdirectory(example)
+
+if((CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME OR MODERN_CMAKE_BUILD_TESTING)
+   AND BUILD_TESTING
+)
+  add_subdirectory(tests)
+endif()
