@@ -1,6 +1,7 @@
 * text=auto
 
-.clang-format       text linguist-detectable
+.clang-format   text linguist-detectable
+.cmake-format   text linguist-detectable
 
 .gitattributes export-ignore
 .gitignore     export-ignore
