@@ -12,5 +12,9 @@
 	"C_Cpp.clang_format_fallbackStyle": "LLVM",
 	"[makefile]": {
 		"editor.insertSpaces": false
-	}
+	},
+	"cmakeFormat.args": [
+		"--config-files=.cmake-format"
+	],
+	"cmakeFormat.exePath": "cmake-format"
 }
