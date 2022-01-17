@@ -1,5 +1,13 @@
-cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
+# Works with 3.9 and tested through 3.16
+cmake_minimum_required(VERSION 3.9...3.16 FATAL_ERROR)
 
+if(${CMAKE_VERSION} VERSION_LESS 3.22)
+  cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
+else()
+  cmake_policy(VERSION 3.22)
+endif()
+
+# Project name and a few useful settings
 project(
   pdb2fasta
   DESCRIPTION "A simple library and tool to convert PDB files to FASTA files."
@@ -8,26 +16,23 @@ project(
   VERSION 0.1.0
 )
 
-if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-  set(CMAKE_STATIC_LIBRARY_SUFFIX .so)
-  set(CMAKE_EXECUTABLE_SUFFIX)
+# Only if this is the main project
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+  set(CMAKE_C_EXTENSIONS OFF)
+  set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
-  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/lib)
-  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/lib)
-else()
-  set(CMAKE_STATIC_LIBRARY_SUFFIX .debug.so)
-  set(CMAKE_EXECUTABLE_SUFFIX .debug)
+  include(CTest)
 
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
-  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
-  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
+  if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    set(CMAKE_C_CLANG_TIDY clang-tidy -checks=-*,readability-*)
+  endif()
 endif()
 
-if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-  set(CMAKE_C_CLANG_TIDY clang-tidy -checks=-*,readability-*)
-endif()
-
+# The compiled library code
 add_subdirectory(src)
-add_subdirectory(example)
+
+# The executable CLI tool code
 add_subdirectory(extras)
+
+# The executable example code
+add_subdirectory(example)
