@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
 
 project(
   pdb2fasta
+  DESCRIPTION "A simple library and tool to convert PDB files to FASTA files."
+  HOMEPAGE_URL "https://github.com/exTerEX/pdb2fasta"
   LANGUAGES C
   VERSION 0.1.0)
 
