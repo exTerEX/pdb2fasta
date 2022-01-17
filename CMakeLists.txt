@@ -26,6 +26,13 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     set(CMAKE_C_CLANG_TIDY clang-tidy -checks=-*,readability-*)
   endif()
+
+  find_package(Doxygen)
+  if(Doxygen_FOUND)
+    add_subdirectory(docs)
+  else()
+    message(STATUS "Doxygen not found, not building docs")
+  endif()
 endif()
 
 # The compiled library code
