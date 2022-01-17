@@ -1,7 +1,6 @@
 * text=auto
 
-*.json  text linguist-detectable
-.yml    text linguist-detectable
+.clang-format       text linguist-detectable
 
 .gitattributes export-ignore
 .gitignore     export-ignore
