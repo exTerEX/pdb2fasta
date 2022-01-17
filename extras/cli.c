@@ -21,7 +21,7 @@ struct arguments {
   char *input_file;
   char *output_file;
   char *file_name;
-  bool *quiet;
+  bool quiet;
 };
 
 static error_t parse_opt(int key, char *arg, struct argp_state *state)
