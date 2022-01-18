@@ -1,6 +1,6 @@
-set(HEADER_LIST "${pdb2fasta_SOURCE_DIR}/include/modern/lib.hpp")
+set(HEADER_LIST "${pdb2fasta_SOURCE_DIR}/include/pdb2fasta/pdb2fasta.h")
 
-add_library(${PROJECT_NAME} pdb2fasta.c codon3to1.c)
+add_library(${PROJECT_NAME} pdb2fasta.c codon3to1.c ${HEADER_LIST})
 target_include_directories(
   ${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
                          $<INSTALL_INTERFACE:include>)
@@ -18,4 +18,5 @@ set_target_properties(
 source_group(
   TREE "${PROJECT_SOURCE_DIR}/include"
   PREFIX "Header Files"
+  FILES ${HEADER_LIST}
 )
