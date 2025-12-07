@@ -1,20 +1,7 @@
 {
-	"files.eol": "\n",
-	"files.encoding": "utf8",
-	"files.insertFinalNewline": true,
-	"[jsonc]": {
-		"editor.formatOnSave": true,
-		"editor.tabSize": 4,
-		"editor.insertSpaces": false,
-	},
-	"C_Cpp.formatting": "clangFormat",
-	"C_Cpp.clang_format_style": "file",
-	"C_Cpp.clang_format_fallbackStyle": "LLVM",
-	"[makefile]": {
-		"editor.insertSpaces": false
-	},
-	"cmakeFormat.args": [
-		"--config-files=.cmake-format"
-	],
-	"cmakeFormat.exePath": "cmake-format"
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
 }

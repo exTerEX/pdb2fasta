@@ -1,47 +1,56 @@
-# Works with 3.9 and tested through 3.16
-cmake_minimum_required(VERSION 3.9...3.16 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.15)
+project(pdb2fasta VERSION 0.2.0 LANGUAGES CXX)
 
-if(${CMAKE_VERSION} VERSION_LESS 3.22)
-  cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
-else()
-  cmake_policy(VERSION 3.22)
-endif()
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# Project name and a few useful settings
-project(
-  pdb2fasta
-  DESCRIPTION "A simple library and tool to convert PDB files to FASTA files."
-  HOMEPAGE_URL "https://github.com/exTerEX/pdb2fasta"
-  LANGUAGES C
-  VERSION 0.1.0
+# Options
+option(BUILD_CLI "Build command-line interface" ON)
+option(BUILD_PYTHON "Build Python bindings" OFF)
+
+# Library sources
+set(LIB_SOURCES
+    src/parser.cpp
+    src/converter.cpp
 )
 
-set(DEFAULT_BUILD_TYPE "Release")
-if(NOT CMAKE_BUILD_TYPE AND CMAKE_CONFIGURATION_TYPES)
-  message(STATUS "Setting build type to '${DEFAULT_BUILD_TYPE} as none was specified.'")
-  set(CMAKE_BUILD_TYPE "${DEFAULT_BUILD_TYPE}" CACHE STRING "Choose the type of build." FORCE)
-  
-  # Set the possible values of build type for cmake-gui
-  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+# Create the core library
+add_library(pdb2fasta_core STATIC ${LIB_SOURCES})
+target_include_directories(pdb2fasta_core PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
+
+# Command-line interface
+if(BUILD_CLI)
+    add_executable(pdb2fasta src/main.cpp)
+    target_link_libraries(pdb2fasta PRIVATE pdb2fasta_core)
+    
+    install(TARGETS pdb2fasta
+        RUNTIME DESTINATION bin
+    )
 endif()
 
-# Only if this is the main project
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-  set(CMAKE_C_EXTENSIONS OFF)
-  set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
-  include(CTest)
-
-  if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-    set(CMAKE_C_CLANG_TIDY clang-tidy -checks=-*,readability-*)
-  endif()
+# Python bindings
+if(BUILD_PYTHON)
+    find_package(pybind11 CONFIG REQUIRED)
+    
+    pybind11_add_module(_pdb2fasta src/bindings.cpp)
+    target_link_libraries(_pdb2fasta PRIVATE pdb2fasta_core)
+    
+    install(TARGETS _pdb2fasta
+        LIBRARY DESTINATION .
+    )
 endif()
 
-# The compiled library code
-add_subdirectory(src)
+# Install headers
+install(DIRECTORY include/
+    DESTINATION include
+)
 
-# The executable CLI tool code
-add_subdirectory(extras)
-
-# The executable example code
-add_subdirectory(example)
+# Install library
+install(TARGETS pdb2fasta_core
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+)

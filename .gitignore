@@ -15,3 +15,51 @@ CMakeLists.txt.*
 build
 .cmake
 bin/**
+
+# Build directories
+build/
+dist/
+*.egg-info/
+_skbuild/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# UV
+.uv/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.cover
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# C++ build artifacts
+*.o
+*.a
+*.dylib
+*.dSYM/
+
+# Generated files
+*.egg
+pip-log.txt
+pip-delete-this-directory.txt

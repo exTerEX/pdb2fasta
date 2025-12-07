@@ -1,0 +1,56 @@
+[build-system]
+requires = ["scikit-build-core>=0.5", "pybind11>=2.11"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "pdb2fasta"
+version = "v0.1.0"
+description = "Convert PDB and mmCIF structure files to FASTA format"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Andreas", email = "a.s.sagen@odont.uio.no"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: C++",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+keywords = ["pdb", "mmcif", "fasta", "bioinformatics", "protein", "structure"]
+
+[dependency-groups]
+dev = ["pytest>=7.0", "scikit-build-core>=0.5", "pybind11>=2.11"]
+test = ["pytest>=7.0"]
+
+[project.urls]
+Homepage = "https://github.com/example/pdb2fasta"
+Repository = "https://github.com/example/pdb2fasta"
+
+[project.scripts]
+pdb2fasta-cli = "pdb2fasta.cli:main"
+
+[tool.scikit-build]
+cmake.args = ["-DBUILD_PYTHON=ON", "-DBUILD_CLI=OFF"]
+wheel.packages = ["src/pdb2fasta"]
+build-dir = "build/{wheel_tag}"
+cmake.verbose = true
+cmake.minimum-version = "3.15"
+sdist.include = ["src/*", "include/*", "CMakeLists.txt"]
+sdist.exclude = ["tests/*"]
+
+[tool.scikit-build.cmake.define]
+BUILD_PYTHON = "ON"
+BUILD_CLI = "OFF"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
